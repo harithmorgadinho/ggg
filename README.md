@@ -7,5 +7,5 @@
 It's easy to use!
 
 ```r
-devtools::install_github('harithmorgadinho/firstpackage')
+devtools::install_github('harithmorgadinho/ggg')
 ```
