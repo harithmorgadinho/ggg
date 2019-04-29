@@ -1,0 +1,46 @@
+vpb_ <- viewport(width = 0.5, height = 1, x = 0.25, y = 0.5)  # 
+vpa_ <- viewport(width = 0.5, height = 1, x = 0.75, y = 0.5)  # 
+
+
+pdf('test_j.pdf')
+print(p, vp = vpb_)
+print(p, vp = vpa_)
+dev.off()
+
+library(grid)
+p
+
+
+vpb_ <- viewport(width = 0.5, height = 0.5, x = 0.25, y = 0.25)  # 
+vpa_ <- viewport(width = 0.5, height = 0.5, x = 0.75, y = 0.75)  # 
+vpc_ <- viewport(width = 0.5, height = 0.5, x = 0.25, y = 0.75)  # 
+vpd_ <- viewport(width = 0.5, height = 0.5, x = 0.75, y = 0.25)  
+vpe_ <- viewport(width = 0.5, height = 0.5, x = 0.75, y = 0.5)
+
+leg <- get_legend(p)
+p_legend=as_ggplot(leg)
+p=p+theme(legend.position = "none")
+pdf('test_j.pdf')
+print(p, vp = vpb_)
+print(p, vp = vpa_)
+print(p, vp = vpc_)
+print(p, vp = vpd_)
+print(p_legend, vp = vpe_)
+dev.off()
+p+theme(legend.position="bottom")
+leg <- get_legend(p)
+
+# Convert to a ggplot and print
+p_legend=as_ggplot(leg)
+
+
+g_legend <- function(a.gplot){ 
+  tmp <- ggplot_gtable(ggplot_build(a.gplot)) 
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box") 
+  legend <- tmp$grobs[[leg]] 
+  legend
+} 
+
+legend <- g_legend(p) 
+grid.draw(legend)
+getwd()

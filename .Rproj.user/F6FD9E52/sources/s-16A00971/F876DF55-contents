@@ -1,0 +1,10 @@
+grid_coord<- gCentroid(rpol,byid=TRUE, id =rpol@data$layer)
+grid_coord<- as.data.frame(grid_coord@coords)
+grid_coord$layer<-rpol@data$layer
+head(grid_coord)
+
+crossing_dat$long <- grid_coord$x[match(crossing_dat$layer,grid_coord$layer)]
+
+crossing_dat$lat <- grid_coord$y[match(crossing_dat$layer,grid_coord$layer)]
+
+head(crossing_dat)

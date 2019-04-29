@@ -1,0 +1,12 @@
+\name{goodbye}
+\alias{goodbye}
+\title{Hello, World!}
+\usage{
+  hello()
+}
+\description{
+  Prints 'ggg is the best'.
+}
+\examples{
+  hello()
+}

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1556004768351.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "217A589",
+    "lastKnownWriteTime" : 1556007482,
+    "last_content_update" : 1556018996712,
+    "path" : "~/Dropbox/ggg/R/crop_map_world.R",
+    "project_path" : "R/crop_map_world.R",
+    "properties" : {
+        "cursorPosition" : "77,0",
+        "scrollLine" : "59",
+        "tempName" : "Untitled5"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

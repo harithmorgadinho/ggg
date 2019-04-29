@@ -1,0 +1,144 @@
+map_t <- openmap(c(-9,35), c(-14,41),type='nps',zoom=8, minNumTiles=20)
+
+map_longlat <- openproj(map_t, projection = "+proj=longlat")
+
+autoplot(map_longlat)
+
+autoplot(map_longlat)+geom_point(data=sl, aes(x=X ,y=Y), size=4, shape=17)+geom_sf(data=map, col="black", size=0.5, fill="transparent")
+
+geom_polygon(data=moz_cropped, col="black", size=0.5, fill="transparent",aes(x = long, y = lat,group=group))
+
+df=sl
+df_coord=df[,2:3]
+spdf <- SpatialPointsDataFrame(df_coord, df,proj4string =
+                                 CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+plot(spdf)
+flpth <- system.file('wmap_hr.RDS', package = 'ggg')
+load(flpth)
+#flpth <- system.file('biomes_lr.RDS', package = 'ggg')
+#load(flpth)
+#worldMap=shape_sf_lr
+
+print('map not selected = downloading and using one that suits the input. - medium resolution')
+plot(map)
+
+map <- worldMap %>% st_crop(extent(spdf)*5)
+
+#Maps for expedition paper
+thismap = map_data("world")
+thismap2 = map_data("world", region = "Mozambique")
+??north
+sl=read.csv(file.choose())
+#ggplot(thismap, aes(long, lat, group=group)) +geom_polygon(fill = Mozambique, colour="black") +ggtitle("Map of World")
+
+ggplot(thismap2, aes(long, lat, group=group)) +geom_polygon(fill="white", colour="gray") + ggtitle("Map of World")
+
+library(OpenStreetMap)
+library(ggsn)
+library(ggplot2)
+
+setwd("/Users/harith/Dropbox")
+tiff("expedition_locations3.tiff", width=6, height=5, units="in", res=500)
+
+
+#niassa
+map <- openmap(c(-9,35), c(-14,41),type='nps',zoom=8, minNumTiles=20)
+
+map_longlat <- openproj(map, projection = "+proj=longlat")
+
+library(raster)
+moz=shapefile(file.choose())
+e <- extent(35,41,-14,-9)
+moz_cropped=crop(moz,e)
+plot(moz_cropped)
+
+moz_1=shapefile(file.choose())
+e <- extent(35,41,-14,-9)
+moz_cropped_1=crop(moz_1,e)
+plot(moz_cropped_1)
+
+
+#plot lines
+t2.rect2 <- data.frame (xmin=35, xmax=41, ymin=-9, ymax=-14)
+
+
+#str(moz_cropped)
+
+#pb=ggplot(moz.points) + aes(long,lat,group=group) + geom_polygon(fill="transparent") + geom_path(color="black") +coord_equal()
+
+
+
+p=autoplot(map_longlat)+geom_point(data=sl, aes(x=X ,y=Y), size=4, shape=17)+
+  annotate("text", x = 36.48196, y = -12.8,size=3, label = "Location 1")+
+  annotate("text", x = 36.02, y = -12.45, size=3,label = "Location 2")+
+  annotate("text", x = 36.47, y = -12.05696, size=3,label = "Location 3")+
+  annotate("text", x = 37.11135, y = -12.29, size=3,label = "Location 4")+
+  annotate("text", x = 38.52, y = -12.55, size=3,label = "Location 5")+
+  annotate("text", x = 38.91815, y = -12.92, size=3,label = "Location 6")+
+  annotate("text", x = 39.45860, y = -12.76, size=3,label = "Location 7")+
+  annotate("text", x = 40.14, y = -12.57, size=3,label = "Location 8")+
+  north(symbol = 16, scale = 0.2,x.min=35.5, x.max=40, y.min=-14, y.max=-9.5,location="topleft" )+
+  ggsn::scalebar(x.min=35.5, x.max=40, y.min=-13.5, y.max=-10,dist = 50, dd2km = TRUE, model = 'WGS84',st.size = 3.5,location="bottomleft")+
+  geom_polygon(data=moz_cropped, col="black", size=0.5, fill="transparent",aes(x = long, y = lat,group=group))+
+  geom_polygon(data=moz_cropped_1, col="black", size=0.15, fill="transparent",aes(x = long, y = lat,group=group))+
+  scale_x_continuous(breaks = ewbrks, labels = ewlbls, expand = c(0, 0)) +
+  scale_y_continuous(breaks = nsbrks, labels = nslbls, expand = c(0, 0))+
+  annotate("text", x = 37.45860, y = -9.75, size=5,label = "TANZANIA", family='Times')+
+  theme_linedraw()+
+  theme(axis.title.x=element_blank(),axis.title.y=element_blank())+
+  annotate("text", x = 38, y = -13.5, size=5,label = "MOZAMBIQUE", family='Times')+
+  annotate("text", x = 35.3, y = -13.2, size=4,label = "Niassa", fontface="italic",family='Times',col="grey30")+
+  annotate("text", x = 39.5, y = -11.75, size=4,label = "Cabo Delgado",col="grey30", fontface="italic",family='Times')+
+  annotate("text", x = 40.75, y = -13.1, size=3,label = "Pemba",col="grey30", fontface="italic",family='Times')+
+  geom_rect(data=t2.rect2, aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), colour="black", fill="transparent", inherit.aes = FALSE)
+
+tiff("testing_map.tiff", width=6, height=5, units="in", res=500)
+p
+dev.off()
+
+data("wrld_simpl", package="maptools")
+
+out <- crop(wrld_simpl, extent(-20, 55, -40, 35))
+plot(out, col="khaki", bg="azure2")
+
+
+#africa+mozambique+rectangle
+t2.rect1 <- data.frame (xmin=35, xmax=41, ymin=-9, ymax=-14)
+
+p2=ggplot(out, aes(long, lat, group=group)) +
+  geom_polygon(fill=rgb(1,1,1,0.4), colour="black", size = 0.15)+
+  geom_polygon(data = moz,fill="grey50", colour="black",size = 0.15)+
+  blank()+geom_rect(data=t2.rect1, aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), colour="red", fill="transparent", inherit.aes = FALSE)+theme(panel.border = element_rect(colour = "black", fill=NA, size=1))+theme(panel.spacing.x=unit(0.5, "lines"))
+
+library(grid)
+#Plot in a plot
+grid.newpage()
+vpb_ <- viewport(width = 1, height = 1, x = 0.5, y = 0.5)  # the larger map
+
+vpa_ <- viewport(width = 0.25, height = 0.3, x = 0.85, y = 0.82)  # the inset in upper right
+
+tiff("map_wege.tiff", width=6, height=5, units="in", res=500)
+
+print(p, vp = vpb_)
+print(p2, vp = vpa_)  
+
+dev.off()
+
+library(grid)
+?viewport
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

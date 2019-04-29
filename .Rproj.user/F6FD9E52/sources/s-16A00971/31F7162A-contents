@@ -1,0 +1,16 @@
+ggplot(data=r_df) +
+  geom_tile(aes(x=x,y=y,fill=r_df$cuts))+
+  geom_sf(data=map, aes(col= as.character(map$BIOME)),bg=NA,size= 1)+
+  scale_color_manual(legend_title,values = 'black')
+  scale_fill_manual(legend_title,values = terrain.colors(8),na.value=na,labels=levels(r_df$cuts))+
+  scale_color_discrete(legend_title,values = terrain.colors(8))
+  theme_grey()+
+  theme(axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        panel.background = element_rect(fill =panel_background))+
+  scale_x_continuous(breaks= breaks_x)+
+  scale_y_continuous(breaks= breaks_y)+
+  add_phylopic(img, alpha = alpha, x = x_sf, y = y_sf, ysize = size,
+               color = icon_color)+
+  ggtitle(map_title)+
+  theme(plot.title = element_text(hjust = 0.5))

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1556380552162.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "DF7B8181",
+    "lastKnownWriteTime" : 1556398425,
+    "last_content_update" : 1556398425892,
+    "path" : "~/Dropbox/ggg/R/crs_guesser.R",
+    "project_path" : "R/crs_guesser.R",
+    "properties" : {
+        "cursorPosition" : "25,0",
+        "scrollLine" : "12",
+        "tempName" : "Untitled8"
+    },
+    "relative_order" : 14,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

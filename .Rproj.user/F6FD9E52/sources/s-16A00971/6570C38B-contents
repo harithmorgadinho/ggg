@@ -1,0 +1,30 @@
+if(any(class(input)=='data.frame')){
+  
+  
+  
+  df=na.omit(input)
+  colnames(df)=c('species','decimalLatitude','decimalLongitude')
+  df_coord=df[,3:2]
+  spdf <- SpatialPointsDataFrame(df_coord, df,proj4string =
+                                   CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+  
+  
+  #### converting records to sf
+  spdf_as_sf=st_as_sf(spdf)
+  
+  spdf_as_sf <- sp_as_sf %>% group_by(species) %>% summarise()
+  
+  worldMap <- ne_countries(scale = 10, type = "map_units", returnclass = 'sf')
+  map <- worldMap %>% st_crop(extent(spdf))
+}
+
+else{
+  
+  print('map not selected = downloading and using one that suits the input. - medium resolution')
+  
+  worldMap <- ne_countries(scale = 10, type = "map_units", returnclass = 'sf')
+  map <- worldMap %>% st_crop(extent(input))
+  
+}
+
+}
