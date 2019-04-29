@@ -1,4 +1,4 @@
-# GGG visualized your data
+# GGG visualize your data
 
 ## Second-level title
 
