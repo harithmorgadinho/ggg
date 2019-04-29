@@ -1,5 +1,0 @@
-map=crop_map_world(r_visits_all)
-querty=spdf_maker(ras_canape)
-plot(querty[[3]]$geometry)
-?crop_map_world
-dev.off()

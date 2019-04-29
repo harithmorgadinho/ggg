@@ -1,4 +1,0 @@
-gg_bee(dataf,cellsize = 1)
-load(file.choose())
-quartz()
-gg_rasta(gbif_am,filling='pal_npg')

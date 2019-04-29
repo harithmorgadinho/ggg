@@ -1,7 +1,0 @@
-input@data@values[255]
-plot(xt)
-p=gg_rasta(ras_canape,map_bg = 'red',silent = T)
-p[[1]]
-class(p)
-rm(gg_rasta)
-dev.off()
