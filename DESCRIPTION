@@ -6,14 +6,16 @@ Author: Harith Farooq
 Maintainer: The package maintainer <harithmorgadinho@gmail.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: MIT + FILE LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.3.0),
     methods,
+    sp
 Imports:
     ggplot2,
+    plyr,
     raster,
     rgeos,
     tidyverse,
