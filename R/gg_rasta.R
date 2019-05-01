@@ -166,32 +166,8 @@ if(any(class(input)=='SpatialPointsDataFrame')){
 
     if (is.null(breaks)){
 
-      if (exclude_0=='auto'){
-
-        if(min(na.omit(input@data@values))==0){
-
-        x=c(min(input@data@values[input@data@values > 0]),max(na.omit(input@data@values)))
-        breaks=unique(round(seq(min(x), max(x),len=break_n),round_to))}
-        else{
-          x=c(min(na.omit(input@data@values)),max(na.omit(input@data@values)))
-          breaks=unique(round(seq(min(x), max(x),len=break_n),round_to))
-
-        }
-
-      }
-      if (exclude_0=='yes'){
-
-        x=c(min(input@data@values[input@data@values > 0]),max(na.omit(input@data@values)))
-        breaks=unique(round(seq(min(x), max(x),len=break_n),round_to))
-
-
-      }
-      if (exclude_0=='no'){
-        x=c(min(na.omit(input@data@values)),max(na.omit(input@data@values)))
-        breaks=unique(round(seq(min(x), max(x),len=break_n),round_to))
-
-      }
-      #breaks=unique(seq(min(x), max(x),len=break_n))
+      breaks=break_maker(input,exclude_0 = exclude_0, round_to = round_to, break_n =  break_n)
+      
     }
 
 

@@ -1,14 +1,16 @@
-#' @title gg_rasta
+#' @title crop_map_world
 #' @description A function to plot biodiversity data.
 #' @param input  df or raster
 #' @param crs projection of data provided ('longlat'/'cea'/'auto')
+#' @param zoom_out zoom level for the map
 #' @examples
 #' crop_map_world(df)
 #' crop_map_world(df,crs='longlat')
 #' @export
 crop_map_world=function(input, crs='auto',zoom_out=1){
 
-  worldMap <- ne_countries(scale = 10, type = "map_units", returnclass = 'sf')
+  flpth <- system.file('wmap_hr.RDS', package = 'ggg')
+  load(flpth)
 
   if(any(class(input)=='data.frame')){
     df=input

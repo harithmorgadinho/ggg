@@ -2,7 +2,7 @@
 % Please edit documentation in R/crop_map_spdf_maker.R
 \name{crop_map_spdf_maker}
 \alias{crop_map_spdf_maker}
-\title{gg_rasta}
+\title{crop_map_spdf_maker}
 \usage{
 crop_map_spdf_maker(input, crs = "auto", zoom_out = 1)
 }
@@ -10,6 +10,8 @@ crop_map_spdf_maker(input, crs = "auto", zoom_out = 1)
 \item{input}{df or raster}
 
 \item{crs}{projection of data provided ('longlat'/'cea'/'auto')}
+
+\item{zoom_out}{zoom level for the map}
 }
 \description{
 A function to plot biodiversity data.
