@@ -8,7 +8,7 @@
 #' crop_map_world(df,crs='longlat')
 #' @export
 crop_map_world=function(input, crs='auto',zoom_out=1){
-
+rm(worldMap)
   flpth <- system.file('wmap_hr.RDS', package = 'ggg')
   load(flpth)
 

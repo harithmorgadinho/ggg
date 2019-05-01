@@ -6,7 +6,7 @@
 #' @export
 
 crs_guesser=function(input){
-  if (class(input)=='dataframe'){
+  if (any(class(input)=='dataframe' )| any(class(input)=='data.frame')){
     if (max(input[,2])^2>100000) {
     crs='cea'}
   else {
@@ -14,7 +14,7 @@ crs_guesser=function(input){
   }
 
   }#df
-  if (class(input)=='RasterLayer'){
+  if (any(class(input)=='RasterLayer')){
 
     max_ras=as.data.frame(bbox(input))
 
@@ -26,7 +26,7 @@ crs_guesser=function(input){
 
   }#raster
 
-  if (class(input)=='SpatialPointsDataFrame'){
+  if (any(class(input)=='SpatialPointsDataFrame')){
 
     max_ras=as.data.frame(bbox(input))
 
