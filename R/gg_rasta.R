@@ -31,7 +31,14 @@
 #'
 #' gg_rasta(input)
 #' @export
+#' @importFrom rphylopic image_data
+#' @importFrom rphylopic add_phylopic
+#' @importFrom sf st_crop
+#' @importFrom raster rasterize
+#' @importFrom sf st_transform
 
+
+add_phylopic
 gg_rasta=function(input,
                   gfun='richness',
                   icon_color="black",
@@ -47,6 +54,7 @@ gg_rasta=function(input,
                   scal_cont = NULL,
                   break_n = 7,
                   low = "khaki1",
+                  mid = NULL,
                   high = "blueviolet",
                   alpha=0.7,
                   map_col='grey30',
@@ -65,7 +73,8 @@ gg_rasta=function(input,
                   return='map',
                   rem_map_leg=NULL,
                   rem_hist_leg=NULL,add_values_hist=NULL,
-                  silent=NULL)
+                  silent=NULL,
+                  mask='yes')
 {
 
   color_palletes <- system.file('color_palletes.RDS', package = 'ggg')
@@ -151,7 +160,8 @@ if(any(class(input)=='SpatialPointsDataFrame')){
           size=size*1000000
         }
         if (!is.null(y_sf)){
-         y_sf=y_sf*1000000}
+         y_sf=y_sf*100000
+         }
 
         if (!is.null(x_sf)){
         x_sf=x_sf*100000}
@@ -204,7 +214,7 @@ if(any(class(input)=='SpatialPointsDataFrame')){
 
     if (is.null(filling)){
 
-      temp_pallette <- colorRampPalette(c(low,high))
+      temp_pallette <- colorRampPalette(c(low,mid,high))
       filling=temp_pallette(break_n)}
 
     if (filling %in% names(palette)){
@@ -240,7 +250,12 @@ if(is.null(invert_palette)) {
 
       if(is.null(scal_cont)) {
         ###################################
-        xt=mask(input,map)
+        if(mask=='yes'){
+          xt=mask(input,map)
+        }
+        if(mask=='no'){
+          xt=input
+        }
         r_points = rasterToPoints(xt)
         r_df = data.frame(r_points)
 
@@ -295,7 +310,13 @@ if(!is.null(rem_hist_leg)){
 
       } else{
 
-        xt=mask(input,map)
+        if(mask=='yes'){
+          xt=mask(input,map)
+        }
+        if(mask=='no'){
+          xt=input
+        }
+        
         r_points = rasterToPoints(xt)
         r_df = data.frame(r_points)
 
@@ -306,7 +327,7 @@ if(!is.null(rem_hist_leg)){
           geom_sf(data=map, col=map_col,bg=map_bg, size=width)+
           geom_tile(aes(x=x,y=y,fill=r_df[,3]))+
           geom_sf(data=map, col=map_col,bg=NA, size=width)+
-          scale_fill_gradient(legend_title,low=low, high=high,na.value=na,limits=c(min(na.omit(r_df[,3])),max(na.omit(r_df[,3]))))+
+          scale_fill_gradientn(legend_title,colors=c(low,mid,high),na.value=na,limits=c(min(na.omit(r_df[,3])),max(na.omit(r_df[,3]))))+
           theme(axis.title.x=element_blank(),
                 axis.title.y=element_blank(),
                 panel.background = element_rect(fill =panel_background))+
@@ -320,7 +341,7 @@ if(!is.null(rem_hist_leg)){
         dat <- data.frame(counts= f$counts,breaks = f$mids)
         h=ggplot(dat, aes(x = breaks, y = counts, fill = breaks)) +
           geom_bar(stat = "identity")+
-          scale_fill_gradient(legend_title,low=low, high=high,na.value=na)+
+          scale_fill_gradientn(legend_title,colors=c(low,mid,high),na.value=na)+
           theme(axis.text.x = element_blank(), axis.ticks = element_blank(),axis.title.x = element_blank(),axis.title.y = element_blank())
 
         if(!is.null(add_values_hist)){

@@ -19,7 +19,10 @@ Imports:
     raster,
     rgeos,
     tidyverse,
+    sf,
+    rphylopic,
 Suggests:
+    visits,
     testthat,
     knitr,
     rmarkdown

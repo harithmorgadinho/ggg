@@ -26,7 +26,7 @@ crs_guesser=function(input){
 
   }#raster
 
-  if (any(class(input)=='SpatialPointsDataFrame')){
+  if (any(class(input)=='SpatialPointsDataFrame')|any(class(input)=="SpatialPolygonsDataFrame")){
 
     max_ras=as.data.frame(bbox(input))
 
@@ -38,3 +38,4 @@ crs_guesser=function(input){
 }#df
   return(crs)
 }
+
