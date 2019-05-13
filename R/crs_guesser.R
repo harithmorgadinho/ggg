@@ -8,34 +8,24 @@
 crs_guesser=function(input){
   if (any(class(input)=='dataframe' )| any(class(input)=='data.frame')){
     if (max(input[,2])^2>100000) {
-    crs='cea'}
-  else {
-    crs='longlat'
-  }
-
+      crs_input='cea'}
+    else {
+      crs_input='longlat'
+    }
+    
   }#df
-  if (any(class(input)=='RasterLayer')){
-
+  
+  if (any(class(input)=='RasterLayer')|any(class(input)=='SpatialPointsDataFrame')|any(class(input)=="SpatialPolygonsDataFrame")){
+    
     max_ras=as.data.frame(bbox(input))
-
+    
     if (any(max_ras$max^2>100000)) {
-    crs='cea'}
-  else {
-    crs='longlat'
-  }
-
-  }#raster
-
-  if (any(class(input)=='SpatialPointsDataFrame')|any(class(input)=="SpatialPolygonsDataFrame")){
-
-    max_ras=as.data.frame(bbox(input))
-
-    if (max(input[,2])^2>100000) {
-    crs='cea'}
-  else {
-    crs='longlat'
-  }
-}#df
-  return(crs)
+      crs_input='cea'}
+    else {
+      crs_input='longlat'
+    }
+    
+  }#
+  
+  return(crs_input)
 }
-
